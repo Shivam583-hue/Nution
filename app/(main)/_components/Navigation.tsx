@@ -5,6 +5,7 @@ import { useMediaQuery } from 'usehooks-ts'
 import React, { ElementRef, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import UserItem from './UserItem'
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -18,18 +19,21 @@ const Navigation = () => {
 
   React.useEffect(() => {
     if (isMobile) {
-      Collapse()
-    } else {
-      resetWidth()
+      Collapse();
     }
-  }, [isMobile])
+  }, [isMobile]);
+
+  React.useEffect(() => {
+    if (!isMobile) {
+      resetWidth();
+    }
+  }, [isMobile]);
 
   React.useEffect(() => {
     if (isMobile) {
-      Collapse()
+      Collapse();
     }
-  }, [pathname, isMobile])
-
+  }, [pathname]);
 
   function handleMouseDown(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.preventDefault()
@@ -92,7 +96,7 @@ const Navigation = () => {
           <ChevronLeft className='h-6 w-6' />
         </div>
         <div>
-          <p>Action Items</p>
+          <UserItem />
         </div>
         <div className='mt-4'>
           <p>Documents</p>

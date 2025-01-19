@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "sonner"
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <ConvexProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange storageKey="nution-theme-2">
+            <Toaster position="bottom-center" />
             {children}
           </ThemeProvider>
         </ConvexProvider>
