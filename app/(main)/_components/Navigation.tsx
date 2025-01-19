@@ -5,11 +5,13 @@ import { useMediaQuery } from 'usehooks-ts'
 import React, { ElementRef, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import UserItem from './UserItem'
 import { useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
-import Item from './Item'
 import { toast } from 'sonner'
+
+import Item from './Item'
+import DocumentList from './DocumentList'
+import UserItem from './UserItem'
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -119,6 +121,7 @@ const Navigation = () => {
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
         <div className='mt-4'>
+          <DocumentList />
         </div>
         <div className='opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize h-full absolute w-1 bg-primary/10 right-0 top-0' onMouseDown={handleMouseDown} onClick={resetWidth} />
       </aside>
