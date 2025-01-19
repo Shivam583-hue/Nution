@@ -4,11 +4,13 @@ import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, MoreVertical, Plus, Trash } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useUser } from "@clerk/nextjs";
 
 type ItemProps = {
   id?: Id<"documents">;
@@ -35,8 +37,21 @@ const Item = ({
   onExpand,
   expanded,
 }: ItemProps) => {
+  const { user } = useUser()
   const router = useRouter()
   const create = useMutation(api.documents.createDocument)
+
+  const archive = useMutation(api.documents.archive)
+  const archiveDocument = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation()
+    if (!id) return;
+    const promise = archive({ documentId: id })
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Document moved to trash!",
+      error: "Failed to move document to trash",
+    })
+  }
 
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
 
@@ -97,7 +112,24 @@ const Item = ({
       )}
       {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
-          <div role="button" onClick={onCreate} className=" opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:bg-neutral-600">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+              <div className=" opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 " role="button">
+                <MoreHorizontal className="h-4 w-4 text-muted-foregroud" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-60" align="start" side="right" forceMount>
+              <DropdownMenuItem onClick={archiveDocument}>
+                <Trash className="h-4 w-4 mr-2" />
+                Delete
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <div className="text-xs text-muted-foregroud p-2">
+                Last edited by: {user?.firstName}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div role="button" onClick={onCreate} className=" opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600">
             <Plus className="h-4 w-4 text-muted-foregroud" />
           </div>
         </div>
