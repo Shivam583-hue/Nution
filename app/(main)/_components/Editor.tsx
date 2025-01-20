@@ -30,15 +30,9 @@ const Editor = ({ initialContent, params }: EditorProps) => {
   const [value, setValue] = React.useState<string>(initialContent ? initialContent : "");
   console.log(value)
 
-  let editor;
-
-  if (!initialContent) {
-    editor = useCreateBlockNote()
-  } else {
-    editor = useCreateBlockNote({
-      initialContent: initialContent ? JSON.parse(initialContent) : [],
-    });
-  }
+  const editor = useCreateBlockNote({
+    initialContent: initialContent ? JSON.parse(initialContent) : undefined,
+  });
 
   const update = useMutation(api.documents.update)
   const onSubmit = () => {
