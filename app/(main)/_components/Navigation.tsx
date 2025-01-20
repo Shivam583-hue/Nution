@@ -1,8 +1,9 @@
 "use client"
 
-import { ChevronLeft, MenuIcon, PlusCircle, Search, Settings } from 'lucide-react'
-import { useMediaQuery } from 'usehooks-ts'
 import React, { ElementRef, useRef } from 'react'
+import { ChevronLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from 'lucide-react'
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { useMediaQuery } from 'usehooks-ts'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useMutation } from 'convex/react'
@@ -12,6 +13,7 @@ import { toast } from 'sonner'
 import Item from './Item'
 import DocumentList from './DocumentList'
 import UserItem from './UserItem'
+import TrashBox from './TrashBox'
 
 const Navigation = () => {
   const pathname = usePathname()
@@ -122,6 +124,15 @@ const Navigation = () => {
         </div>
         <div className='mt-4'>
           <DocumentList />
+          <Item onClick={handleCreate} icon={Plus} label="Add a page" />
+          <Popover>
+            <PopoverTrigger className='w-full mt-4'>
+              <Item label='Trash' icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent side={isMobile ? "bottom" : "right"} className='p-0 w-72'>
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <div className='opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize h-full absolute w-1 bg-primary/10 right-0 top-0' onMouseDown={handleMouseDown} onClick={resetWidth} />
       </aside>
