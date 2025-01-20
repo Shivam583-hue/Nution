@@ -12,7 +12,6 @@ import "@blocknote/core/fonts/inter.css";
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { init } from 'next/dist/compiled/webpack/webpack'
 
 type EditorProps = {
   onChange: (value: string) => void
