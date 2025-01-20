@@ -1,7 +1,7 @@
 "use client"
 
 import { Avatar } from '@/components/ui/avatar'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { ChevronsLeftRight, LogOut } from 'lucide-react'
 import { SignOutButton, useUser } from '@clerk/nextjs'
 import React from 'react'

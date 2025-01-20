@@ -23,7 +23,8 @@ type InputProps = {
   height?: number;
   className?: string;
   value?: File | string;
-  onChange?: (file: File) => Promise<void>;
+  //onChange?: (file: File) => Promise<void>;
+  onChange?: (file: File | undefined) => Promise<void>; // Allow undefined
   disabled?: boolean;
   dropzoneOptions?: Omit<DropzoneOptions, 'disabled'>;
 };
@@ -163,6 +164,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
               className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
               onClick={(e) => {
                 e.stopPropagation();
+                //eslint-disable-next-line @typescript-eslint/no-explicit-any
                 void onChange?.(undefined);
               }}
             >

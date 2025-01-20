@@ -1,11 +1,9 @@
-import React from 'react'
+import { SignUp } from '@clerk/nextjs'
 
-function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function Page() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
-      {children}
+    <div className='flex min-h-screen flex-col items-center justify-center px-6 py-12 text-center bg-white w-screen'>
+      <SignUp />
     </div>
   )
 }
-
-export default AuthLayout

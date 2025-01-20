@@ -1,6 +1,5 @@
 "use client"
 
-
 import {
   Dialog,
   DialogContent,
@@ -16,7 +15,7 @@ import { useParams } from "next/navigation"
 import { Id } from "@/convex/_generated/dataModel"
 
 export const CoverImageModal = () => {
-  const [file, setFile] = React.useState<File>()
+  const [file, setFile] = React.useState<File | undefined>()
   const params = useParams()
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const coverImage = useCoverImageStore()
@@ -29,7 +28,7 @@ export const CoverImageModal = () => {
     coverImage.onClose()
   }
 
-  const onChange = async (file: File) => {
+  const onChange = async (file: File | undefined) => {
     if (file) {
       setIsSubmitting(true)
       setFile(file)

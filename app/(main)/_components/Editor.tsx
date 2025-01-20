@@ -2,15 +2,13 @@
 
 import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
-import { useMutation, useQuery } from 'convex/react'
+import { useMutation } from 'convex/react'
 import React from 'react'
 import { Block } from "@blocknote/core";
-import { BlockNoteEditor, PartialBlock } from '@blocknote/core'
 import { BlockNoteView } from "@blocknote/mantine";
-import { useCreateBlockNote, useBlockNoteEditor } from '@blocknote/react'
+import { useCreateBlockNote } from '@blocknote/react'
 import "@blocknote/core/style.css"
 import "@blocknote/core/fonts/inter.css";
-import { HTMLAttributes } from "react"
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -30,7 +28,7 @@ const Editor = ({ initialContent, params }: EditorProps) => {
   const [blocks, setBlocks] = React.useState<Block[]>([]);
 
   const [value, setValue] = React.useState<string>(initialContent ? initialContent : "");
-
+  console.log(value)
 
   const editor = useCreateBlockNote({
     initialContent: initialContent ? JSON.parse(initialContent) : [],

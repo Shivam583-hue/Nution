@@ -4,7 +4,7 @@ import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
-import { ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, MoreVertical, Plus, Trash } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, Plus, Trash } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
@@ -63,7 +63,7 @@ const Item = ({
       parentDocument: id,
     }).then((documentId) => {
       if (!expanded) onExpand?.()
-      //router.push(`/documents/${documentId}`)
+      router.push(`/documents/${documentId}`)
     })
     toast.promise(promise, {
       loading: "Creating a new note...",
