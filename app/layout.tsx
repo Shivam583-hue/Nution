@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ConvexProvider } from "@/components/convex-provider";
 import { ModalProvider } from "@/components/modal-provider";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,11 +34,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ConvexProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange storageKey="nution-theme-2">
-            <Toaster position="bottom-center" />
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
+          <EdgeStoreProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange storageKey="nution-theme-2">
+              <Toaster position="bottom-center" />
+              <ModalProvider />
+              {children}
+            </ThemeProvider>
+          </EdgeStoreProvider>
         </ConvexProvider>
       </body>
     </html>
