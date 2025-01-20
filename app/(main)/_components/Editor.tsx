@@ -12,6 +12,7 @@ import "@blocknote/core/fonts/inter.css";
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { init } from 'next/dist/compiled/webpack/webpack'
 
 type EditorProps = {
   onChange: (value: string) => void
@@ -30,9 +31,16 @@ const Editor = ({ initialContent, params }: EditorProps) => {
   const [value, setValue] = React.useState<string>(initialContent ? initialContent : "");
   console.log(value)
 
-  const editor = useCreateBlockNote({
-    initialContent: initialContent ? JSON.parse(initialContent) : [],
-  });
+  let editor;
+
+  if (!initialContent) {
+    editor = useCreateBlockNote()
+  } else {
+    editor = useCreateBlockNote({
+      initialContent: initialContent ? JSON.parse(initialContent) : [],
+    });
+  }
+
   const update = useMutation(api.documents.update)
   const onSubmit = () => {
     setValue(JSON.stringify(blocks, null, 2))
