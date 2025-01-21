@@ -16,9 +16,16 @@ type NavbarProps = {
   onResetWidth: () => void
 }
 
+type Param = {
+  documentId: Id<"documents">
+}
+
 const Navbar = ({ isCollapsed, onResetWidth }: NavbarProps) => {
-  const params = useParams()
-  const document = useQuery(api.documents.getById, { documentId: params.documentId as Id<"documents"> })
+  //eslint-disable-next-line @typescript-eslint/no-explicit-any 
+  const params = useParams() as any as Param
+  const para = params.documentId.replace('-Untitled', '')
+  const document = useQuery(api.documents.getById, { documentId: para as Id<"documents"> })
+
 
   if (document === undefined) return <div className='h-full flex items-center justify-center p-4'><Spinner size={"lg"} /></div>
 

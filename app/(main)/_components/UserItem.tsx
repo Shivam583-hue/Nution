@@ -2,13 +2,16 @@
 
 import { Avatar } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { ChevronsLeftRight, LogOut } from 'lucide-react'
-import { SignOutButton, useUser } from '@clerk/nextjs'
+import { ChevronsLeftRight } from 'lucide-react'
+import { useUser } from '@clerk/nextjs'
 import React from 'react'
-import { AvatarImage } from '@radix-ui/react-avatar'
+import { AvatarImage } from '@/components/ui/avatar'
+import SignOutButtonn from './SignOutButton'
 
 const UserItem = () => {
-  const { user } = useUser()
+  const { user, isLoaded } = useUser()
+
+  if (!isLoaded) return null
 
   return (
     <DropdownMenu>
@@ -20,12 +23,12 @@ const UserItem = () => {
             </Avatar>
             <span className='text-start font-medium line-clamp-1'>{user?.fullName}&apos;s Nution</span>
           </div>
-          <ChevronsLeftRight className='rotate-90 ml-2 text-muted-foregroud h-4 w-4' />
+          <ChevronsLeftRight className='rotate-90 ml-2 text-muted-foreground h-4 w-4' />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-80 ' align='start' alignOffset={11} forceMount>
         <div className='flex flex-col space-y-4 p-2'>
-          <p className='text-xs font-medium leading-none text-muted-foregroud'>
+          <p className='text-xs font-medium leading-none text-muted-foreground'>
             {user?.emailAddresses[0]?.emailAddress}
           </p>
           <div className='flex items-center gap-x-2 '>
@@ -42,13 +45,8 @@ const UserItem = () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className='w-full cursor-pointer text-muted-foregroud' asChild>
-          <SignOutButton>
-            <div className='flex items-center justify-center w-full'>
-              Log out
-              <LogOut className='ml-2 h-4 w-4' />
-            </div>
-          </SignOutButton>
+        <DropdownMenuItem className='w-full cursor-pointer text-muted-foreground' asChild>
+          <SignOutButtonn />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -16,7 +16,8 @@ type DocumentIdPageProps = {
 }
 
 const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
-  const document = useQuery(api.documents.getById, { documentId: params.documentId as Id<"documents"> })
+  const para = params.documentId.replace('-Untitled', '')
+  const document = useQuery(api.documents.getById, { documentId: para as Id<"documents"> })
 
   const update = useMutation(api.documents.update)
   if (document === undefined) return <div className='h-full flex items-center justify-center p-4'><Spinner size={"lg"} /></div>
